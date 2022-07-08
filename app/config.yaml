@@ -1,0 +1,31 @@
+sources:
+ my_storage:
+   type: s3
+   endpoint_url: https://ams3.digitaloceanspaces.com
+   access_key_id: ACCESS KEY ID
+   secret_access_key: SECRET
+   region_name: ams3
+
+ my_db:
+   type: postgresql
+   host: DATABASE HOST
+   port: 25060
+   username: USERNAME
+   password: PASSWORD
+   database: DATABASE NAME
+
+watchers:
+ my_storage_watcher:
+   source: my_storage
+   bucket: BUCKET
+   path: subfolder
+   freq:
+    unit: minute
+    interval: 1
+    at: :01
+   #archive_bucket: ARCHIVE_BUCKET
+   additional_sources:
+    - my_db
+   function: load_data
+   args:
+    test: 0
